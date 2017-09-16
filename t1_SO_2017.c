@@ -13,11 +13,11 @@ int ls(){
 	struct dirent **d;
 	struct stat status;
 	struct tm * t;
-	
+
 	var=scandir(".", &d, 0, alphasort);//Ordena los archivos del directorio con alphasort.
-		
+
 	for (j=0; j<var; j++){
-		
+
 		char nombre[1000];
 		stat(nombre, &status);
 		strcpy(nombre,d[j]->d_name);//Asigna el nombre del archivo a la variable nombre.
@@ -26,7 +26,7 @@ int ls(){
 
 		printf("%s\n%s", nombre, asctime(t));//Entrega la fecha y el nombre de los archivos.
 
-		switch(status.st_mode & S_IFMT){ 
+		switch(status.st_mode & S_IFMT){
 			case S_IFBLK: printf("Block Special Device");break;
 			case S_IFIFO: printf("FIFO");break;
 			case S_IFCHR: printf("Character Device");break;
@@ -43,10 +43,13 @@ int ls(){
 	}
 
 	free(d);
-	
+
 	return 0;
 
 }
+
+int obtener_etiquetas(/*no se que wea necesita esta wea*/){}
+
 
 
 //Main para el manejo de las funciones.
@@ -56,18 +59,16 @@ int main(){
 	int n=1;
 	while(n){
 		int var;
-		getcwd(d,sizeof(d)); 
+		getcwd(d,sizeof(d));
 		printf("%s\\$",d);
-		scanf("\n %[^\n]",l); 
-		if(strncmp(l,"ls n",4)==0){
-			ls();
-		}
+		scanf("\n %[^\n]",l);
+
 		//Aplicacion de la funcion open, quedara en un while esperando a que el usuario ingrese close.
-		else if(strncmp(l,"open",4)==0){
+		/*else if(strncmp(l,"open",4)==0){
 			FILE *ff;
 			ff=fopen(&l[5],"r");
-			while(fgets(&l[5],sizeof &l[5],ff)!= NULL){		
-      				fprintf(stdout,"%s",&l[5]);							
+			while(fgets(&l[5],sizeof &l[5],ff)!= NULL){
+      				fprintf(stdout,"%s",&l[5]);
 			}
 			fclose(ff);
 			while (strncmp(l, "close",5) != 0){
@@ -75,22 +76,34 @@ int main(){
 				scanf("%s", l);
 			}
 
-		}
-		//Aplicacion de la funcion cd chdir(&l[3]) llevara al directorio indicado por el comando considerando el caso "..".
-		//Se verifica el valor de chdir(&l[3] asignandolo a una variable, si su valor es 0, la direccion será valida.
-		else if(strncmp(l,"cd",2)==0){
+		}*/
+
+
+		/*Con esta wea abres un directorio y ves que cosas tiene en dentro*/
+		if(strncmp(l,"cd",2)==0){
 			var=chdir(&l[3]);
 			if (var==0){
 				chdir(&l[3]);
+				ls();
 			}
 
 		}
-		
-		//En caso de que el comando ingresado por el usuario no sea ninguno de los pedidos en la tarea se mostrara 
+
+		/*Esta wea seria para ordenar los directorios en sub carpetas*/
+
+		else if(strncmp(l,"ordenar",7){
+			/*aplicar weas de mp3 para obtener parametros*/
+
+			mkdir(genero); //esta wea crea carpeta de nombre "GENERO"*/
+
+		}
+
+
+		//En caso de que el comando ingresado por el usuario no sea ninguno de los pedidos en la tarea se mostrara
 		//en pantalla el pantalla "comando no valido"
 		else{
 			printf("Comando no valido");
-			
+
 		}
 
 	}
